@@ -1,28 +1,33 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <BarraNav />
+    <Title title="GerEs - Sistema de Gerenciamento Escolar" />
+    <router-view :key="$route.fullPath"></router-view>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Alunos from './components/Alunos.vue'
+import BarraNav from  './components/shared/BarraNav'
+import Title from './components/shared/Titles'
+import Professores from "./components/Professor"
+import About from "./components/About"
+import AlunoDetail from "./components/AlunoDetail"
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    /* eslint-disable vue/no-unused-components */
+    Alunos,
+    BarraNav,
+    Title,
+    Professores,
+    About,
+    AlunoDetail
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
