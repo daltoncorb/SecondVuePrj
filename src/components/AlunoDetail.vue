@@ -18,11 +18,11 @@
         </div>
         <div class="form-group col-lg-8">
           <label for="name">Name</label>
-          <input
+          <input 
             type="text"
             class="form-control"
             id="name"
-            v-model="oneStudent.name"
+            v-model="oneStudent.name"                      
           />
         </div>
         <div class="form-group col-lg-8">
@@ -47,10 +47,8 @@
           </select>
         </div>
       </div>
-      <div class="card-footer">
-         <button class="btn btn-success btn-sm">Editar</button>
-         <button class="btn btn-danger btn-sm">Cancelar</button> 
-        <button class="btn btn-success btn-sm" @click="SalvarDadosDoAluno(oneStudent,)">Salvar</button>
+      <div class="card-footer">         
+        <button class="btn btn-success btn-sm" @click="SalvarDadosDoAluno(oneStudent)">Salvar</button>
       </div>
     </div>
   </div>
@@ -62,8 +60,7 @@ export default {
     return {
       oneStudent: {},
       manyProfs: {},
-      studentId: this.$route.params.aluno_id,
-      estado: true
+      studentId: this.$route.params.aluno_id
     };
   },
   created() {     
@@ -85,23 +82,18 @@ export default {
           this.manyProfs = profs;
         });
     },
-    SalvarDadosDoAluno(al, pr){
-      var _student = {id: al.id, name: al.name, age: al.age, prof:{id: pr.id, name: pr.name}}
-
+    SalvarDadosDoAluno(al){
+      var _student = {id: al.id, name: al.name, age: al.age, prof:{id: al.prof.id, name: al.prof.name}}
+      console.log(_student)
       this.$http
-        .post("http://localhost:3000/alunos", _student)
+        .put(`http://localhost:3000/alunos/${_student.id}`, _student)
         .then((res) => res.json())
-        .then((std) => {
-          this.Students.push(std);
-          this.name = "";
-          this.age = null;
+        .then(() => {          
+          this.$router.back();   
         });        
     },
     VoltarAnterior(){
         this.$router.back();
-    },
-    EditarDados(){
-        this.EditarDados = !this.EditarDados
     }
   },
 };
